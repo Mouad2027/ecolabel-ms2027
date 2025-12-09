@@ -1,0 +1,16 @@
+process_id,process_name,category,co2_kg,water_m3,energy_kwh,waste_kg,description
+PROC001,Industrial Washing,processing,0.15,0.05,0.8,0.02,Standard industrial washing cycle
+PROC002,Pasteurization,processing,0.08,0.02,0.5,0.01,Heat treatment for preservation
+PROC003,Freeze Drying,processing,0.45,0.01,2.5,0.05,Lyophilization process
+PROC004,Spray Drying,processing,0.35,0.15,1.8,0.03,Atomization and drying
+PROC005,Cold Storage,storage,0.12,0.001,1.2,0.0,Refrigerated storage per day
+PROC006,Frozen Storage,storage,0.25,0.001,2.8,0.0,Frozen storage per day
+PROC007,Ambient Storage,storage,0.02,0.0,0.1,0.0,Room temperature storage
+PROC008,Canning,packaging,0.18,0.08,1.5,0.08,Metal can packaging
+PROC009,Vacuum Packaging,packaging,0.12,0.02,0.6,0.03,Vacuum sealed packaging
+PROC010,Modified Atmosphere,packaging,0.15,0.02,0.8,0.04,MAP packaging
+PROC011,Aseptic Packaging,packaging,0.22,0.05,1.2,0.05,Sterile packaging process
+PROC012,Grinding,processing,0.08,0.01,0.4,0.02,Mechanical size reduction
+PROC013,Mixing,processing,0.05,0.02,0.3,0.01,Blending ingredients
+PROC014,Extrusion,processing,0.35,0.03,2.2,0.04,Extrusion processing
+PROC015,Fermentation,processing,0.12,0.08,0.6,0.05,Biological fermentation

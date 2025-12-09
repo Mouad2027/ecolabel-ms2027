@@ -1,0 +1,303 @@
+.eco-widget {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 1.25rem;
+  max-width: 400px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.eco-widget-loading,
+.eco-widget-error,
+.eco-widget-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  color: #7f8c8d;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ecf0f1;
+  border-top-color: #27ae60;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.eco-widget-error {
+  color: #e74c3c;
+}
+
+.error-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Header */
+.eco-widget-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.product-info {
+  flex: 1;
+  padding-right: 1rem;
+}
+
+.product-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0 0 0.25rem 0;
+  line-height: 1.3;
+}
+
+.product-brand {
+  font-size: 0.85rem;
+  color: #7f8c8d;
+}
+
+.score-badge {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.score-letter {
+  color: white;
+  font-size: 2rem;
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Score Bar */
+.score-bar-container {
+  position: relative;
+  margin: 1rem 0;
+}
+
+.score-bar {
+  display: flex;
+  border-radius: 20px;
+  overflow: hidden;
+  height: 24px;
+}
+
+.score-bar-segment {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.score-indicator {
+  position: absolute;
+  bottom: -8px;
+  transform: translateX(-50%);
+  font-size: 0.8rem;
+  color: #2c3e50;
+}
+
+/* Numeric Score */
+.score-numeric {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: #7f8c8d;
+  margin-bottom: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #ecf0f1;
+}
+
+.confidence {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+/* Breakdown Section */
+.breakdown-section {
+  margin-bottom: 1rem;
+}
+
+.breakdown-toggle {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #2c3e50;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  user-select: none;
+}
+
+.breakdown-toggle:hover {
+  color: #27ae60;
+}
+
+.breakdown-details {
+  margin-top: 0.75rem;
+}
+
+.breakdown-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.75rem;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.breakdown-icon {
+  font-size: 1.2rem;
+}
+
+.breakdown-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.breakdown-label {
+  font-size: 0.8rem;
+  color: #7f8c8d;
+}
+
+.breakdown-value {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.breakdown-bar {
+  width: 60px;
+  height: 8px;
+  background: #ecf0f1;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.breakdown-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+.breakdown-bar-fill.co2 {
+  background: linear-gradient(90deg, #27ae60, #e74c3c);
+}
+
+.breakdown-bar-fill.water {
+  background: linear-gradient(90deg, #3498db, #9b59b6);
+}
+
+.breakdown-bar-fill.energy {
+  background: linear-gradient(90deg, #f39c12, #e67e22);
+}
+
+/* Labels */
+.labels-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.label-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: #ecf0f1;
+  color: #2c3e50;
+}
+
+.label-badge.label-bio {
+  background: #d5f4e6;
+  color: #1e8449;
+}
+
+.label-badge.label-recyclable {
+  background: #d6eaf8;
+  color: #2980b9;
+}
+
+.label-badge.label-fair_trade {
+  background: #fdebd0;
+  color: #b9770e;
+}
+
+.label-badge.label-local_sourcing {
+  background: #e8daef;
+  color: #7d3c98;
+}
+
+/* Ingredients */
+.ingredients-section {
+  font-size: 0.8rem;
+  color: #7f8c8d;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  background: #f8f9fa;
+  border-radius: 6px;
+}
+
+.ingredients-label {
+  font-weight: 600;
+}
+
+.ingredients-list {
+  font-style: italic;
+}
+
+/* Footer */
+.eco-widget-footer {
+  text-align: center;
+  padding-top: 0.75rem;
+  border-top: 1px solid #ecf0f1;
+}
+
+.powered-by {
+  font-size: 0.7rem;
+  color: #bdc3c7;
+}
+
+/* Responsive */
+@media (max-width: 400px) {
+  .eco-widget {
+    padding: 1rem;
+  }
+
+  .score-badge {
+    width: 50px;
+    height: 50px;
+  }
+
+  .score-letter {
+    font-size: 1.5rem;
+  }
+
+  .product-title {
+    font-size: 1rem;
+  }
+}

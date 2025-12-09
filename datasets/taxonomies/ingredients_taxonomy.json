@@ -1,0 +1,39 @@
+{
+  "version": "1.0.0",
+  "ingredient_synonyms": {
+    "wheat": ["blé", "froment", "wheat flour", "farine de blé"],
+    "rice": ["riz", "arroz", "risotto", "riz basmati", "riz complet"],
+    "sugar": ["sucre", "glucose", "fructose", "dextrose", "sirop de glucose", "sugar cane", "sucre de canne"],
+    "salt": ["sel", "sodium chloride", "chlorure de sodium", "sea salt", "sel marin"],
+    "milk": ["lait", "milk powder", "lait en poudre", "whole milk", "lait entier", "skim milk"],
+    "butter": ["beurre", "butter oil", "huile de beurre", "matière grasse laitière"],
+    "eggs": ["oeufs", "egg yolk", "jaune d'oeuf", "egg white", "blanc d'oeuf", "whole egg"],
+    "palm_oil": ["huile de palme", "palm kernel oil", "huile de palmiste", "graisse de palme"],
+    "soy": ["soja", "soybean", "fève de soja", "lécithine de soja", "soy lecithin"],
+    "cocoa": ["cacao", "cocoa butter", "beurre de cacao", "cocoa powder", "poudre de cacao"],
+    "coffee": ["café", "coffee extract", "extrait de café", "arabica", "robusta"],
+    "beef": ["boeuf", "viande bovine", "beef extract", "extrait de boeuf"],
+    "pork": ["porc", "viande de porc", "ham", "jambon", "bacon", "lard"],
+    "chicken": ["poulet", "volaille", "poultry", "chicken meat", "viande de poulet"],
+    "fish": ["poisson", "fish extract", "extrait de poisson", "anchovy", "anchois"],
+    "tomato": ["tomate", "tomato paste", "concentré de tomate", "tomato sauce", "sauce tomate"],
+    "onion": ["oignon", "onion powder", "poudre d'oignon", "dried onion"],
+    "garlic": ["ail", "garlic powder", "poudre d'ail", "dried garlic"]
+  },
+  "allergens": [
+    "gluten", "crustaceans", "eggs", "fish", "peanuts", "soybeans", 
+    "milk", "nuts", "celery", "mustard", "sesame", "sulphites", 
+    "lupin", "molluscs"
+  ],
+  "additives_categories": {
+    "E100-E199": "colorants",
+    "E200-E299": "preservatives",
+    "E300-E399": "antioxidants",
+    "E400-E499": "thickeners_stabilizers",
+    "E500-E599": "acidity_regulators",
+    "E600-E699": "flavor_enhancers",
+    "E700-E799": "antibiotics",
+    "E900-E999": "miscellaneous",
+    "E1000-E1599": "additional_chemicals"
+  }
+}

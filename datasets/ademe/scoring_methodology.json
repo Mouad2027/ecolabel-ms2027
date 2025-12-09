@@ -1,0 +1,54 @@
+{
+  "metadata": {
+    "source": "ADEME Eco-Score Methodology",
+    "version": "2024.1",
+    "description": "Scoring thresholds and weights for Eco-Score calculation"
+  },
+  "score_thresholds": {
+    "A": {"min": 0, "max": 20, "color": "#1E8449", "label": "Excellent"},
+    "B": {"min": 20, "max": 40, "color": "#82E0AA", "label": "Good"},
+    "C": {"min": 40, "max": 60, "color": "#F4D03F", "label": "Average"},
+    "D": {"min": 60, "max": 80, "color": "#E67E22", "label": "Poor"},
+    "E": {"min": 80, "max": 100, "color": "#E74C3C", "label": "Very Poor"}
+  },
+  "indicator_weights": {
+    "co2_emissions": 0.40,
+    "water_usage": 0.25,
+    "land_use": 0.15,
+    "energy_consumption": 0.10,
+    "biodiversity_impact": 0.10
+  },
+  "normalization_ranges": {
+    "co2_kg_per_kg": {"min": 0, "max": 30, "unit": "kg CO2e/kg"},
+    "water_l_per_kg": {"min": 0, "max": 20000, "unit": "L/kg"},
+    "land_m2_per_kg": {"min": 0, "max": 200, "unit": "m²/kg"},
+    "energy_mj_per_kg": {"min": 0, "max": 100, "unit": "MJ/kg"}
+  },
+  "bonus_weights": {
+    "organic_certified": -10,
+    "local_production": -8,
+    "seasonal_product": -5,
+    "recyclable_packaging": -3,
+    "fair_trade": -2,
+    "sustainable_fishing": -5,
+    "regenerative_agriculture": -8
+  },
+  "malus_weights": {
+    "air_transport": 15,
+    "non_recyclable_packaging": 5,
+    "out_of_season": 8,
+    "endangered_species": 20,
+    "deforestation_risk": 12,
+    "water_stress_region": 8,
+    "excessive_packaging": 5
+  },
+  "category_benchmarks": {
+    "fruits_vegetables": {"average_score": 25, "best_score": 8},
+    "cereals_grains": {"average_score": 30, "best_score": 12},
+    "dairy": {"average_score": 45, "best_score": 25},
+    "meat": {"average_score": 70, "best_score": 45},
+    "seafood": {"average_score": 55, "best_score": 30},
+    "beverages": {"average_score": 35, "best_score": 15},
+    "processed_foods": {"average_score": 50, "best_score": 28}
+  }
+}

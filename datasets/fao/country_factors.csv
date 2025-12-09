@@ -1,0 +1,31 @@
+country_code,country_name,region,agriculture_co2_factor,energy_mix_co2_kg_kwh,water_stress_index,organic_area_percent
+FR,France,Europe,0.85,0.055,0.35,8.5
+DE,Germany,Europe,0.90,0.350,0.28,10.2
+IT,Italy,Europe,0.88,0.280,0.52,15.8
+ES,Spain,Europe,0.82,0.230,0.65,9.3
+GB,United Kingdom,Europe,0.92,0.180,0.22,2.8
+NL,Netherlands,Europe,0.95,0.320,0.32,3.5
+BE,Belgium,Europe,0.93,0.160,0.38,6.8
+AT,Austria,Europe,0.80,0.085,0.15,25.3
+CH,Switzerland,Europe,0.78,0.025,0.12,16.5
+PL,Poland,Europe,1.05,0.650,0.25,3.4
+US,United States,North America,1.10,0.380,0.45,0.6
+CA,Canada,North America,0.95,0.130,0.18,2.1
+MX,Mexico,North America,1.15,0.420,0.55,0.5
+BR,Brazil,South America,1.25,0.080,0.25,1.2
+AR,Argentina,South America,1.18,0.350,0.32,3.5
+CL,Chile,South America,1.08,0.380,0.58,0.8
+CN,China,Asia,1.35,0.580,0.48,0.4
+IN,India,Asia,1.42,0.820,0.72,2.8
+JP,Japan,Asia,1.05,0.480,0.35,0.2
+KR,South Korea,Asia,1.12,0.450,0.42,0.5
+TH,Thailand,Asia,1.28,0.520,0.38,0.3
+VN,Vietnam,Asia,1.32,0.450,0.45,0.2
+ID,Indonesia,Asia,1.45,0.750,0.28,0.1
+AU,Australia,Oceania,1.08,0.650,0.75,8.8
+NZ,New Zealand,Oceania,0.88,0.095,0.15,5.2
+ZA,South Africa,Africa,1.22,0.880,0.68,0.1
+EG,Egypt,Africa,1.35,0.480,0.95,2.5
+MA,Morocco,Africa,1.18,0.620,0.82,0.8
+KE,Kenya,Africa,1.15,0.350,0.55,1.2
+NG,Nigeria,Africa,1.48,0.420,0.35,0.05

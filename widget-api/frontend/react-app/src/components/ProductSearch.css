@@ -1,0 +1,132 @@
+.product-search {
+  width: 100%;
+}
+
+.search-form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.search-input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 2px solid #ecf0f1;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.search-input:focus {
+  border-color: #27ae60;
+}
+
+.search-input::placeholder {
+  color: #bdc3c7;
+}
+
+.search-button {
+  padding: 0.75rem 1.25rem;
+  background: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.search-button:hover:not(:disabled) {
+  background: #1e8449;
+}
+
+.search-button:disabled {
+  background: #95a5a6;
+  cursor: not-allowed;
+}
+
+.search-loading {
+  padding: 1rem;
+  text-align: center;
+  color: #7f8c8d;
+}
+
+.search-empty {
+  padding: 1.5rem;
+  text-align: center;
+  color: #7f8c8d;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+.search-empty p {
+  margin: 0;
+}
+
+.search-empty .hint {
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  opacity: 0.8;
+}
+
+.search-results {
+  margin-top: 1rem;
+  border: 1px solid #ecf0f1;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.search-result-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #ecf0f1;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.search-result-item:last-child {
+  border-bottom: none;
+}
+
+.search-result-item:hover {
+  background: #f8f9fa;
+}
+
+.result-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.result-title {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.result-brand {
+  font-size: 0.85rem;
+  color: #7f8c8d;
+}
+
+.result-gtin {
+  font-size: 0.75rem;
+  color: #95a5a6;
+  font-family: monospace;
+}
+
+.result-score {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

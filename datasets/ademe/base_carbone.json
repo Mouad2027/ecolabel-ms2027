@@ -1,0 +1,137 @@
+{
+  "metadata": {
+    "source": "ADEME Base Carbone",
+    "version": "2024.1",
+    "last_updated": "2024-01-15",
+    "description": "Carbon emission factors for common products and activities in France"
+  },
+  "categories": {
+    "food": {
+      "description": "Food products carbon footprint",
+      "unit": "kg CO2e/kg"
+    },
+    "transport": {
+      "description": "Transportation emission factors",
+      "unit": "kg CO2e/km"
+    },
+    "energy": {
+      "description": "Energy production emissions",
+      "unit": "kg CO2e/kWh"
+    },
+    "packaging": {
+      "description": "Packaging materials emissions",
+      "unit": "kg CO2e/kg"
+    }
+  },
+  "emission_factors": {
+    "food": {
+      "boeuf_conventionnel": 26.5,
+      "boeuf_bio": 22.8,
+      "porc_conventionnel": 7.2,
+      "porc_bio": 6.5,
+      "poulet_conventionnel": 5.8,
+      "poulet_bio": 4.9,
+      "agneau": 23.5,
+      "poisson_peche": 4.2,
+      "poisson_aquaculture": 6.8,
+      "crevettes": 15.5,
+      "lait": 1.32,
+      "fromage_pate_dure": 12.8,
+      "fromage_pate_molle": 8.5,
+      "yaourt": 2.5,
+      "beurre": 9.2,
+      "oeufs": 4.5,
+      "riz": 2.8,
+      "ble": 0.72,
+      "mais": 0.65,
+      "pomme_de_terre": 0.28,
+      "tomate_saison": 0.85,
+      "tomate_hors_saison": 3.2,
+      "salade": 0.35,
+      "carotte": 0.25,
+      "oignon": 0.22,
+      "pomme": 0.35,
+      "banane": 0.92,
+      "orange": 0.48,
+      "fraise_saison": 0.42,
+      "fraise_hors_saison": 2.8,
+      "cafe": 12.5,
+      "the": 3.2,
+      "chocolat": 15.8,
+      "sucre": 0.65,
+      "huile_olive": 4.2,
+      "huile_tournesol": 2.8,
+      "vin": 1.45,
+      "biere": 0.85,
+      "eau_bouteille": 0.32,
+      "jus_orange": 1.2,
+      "pain": 1.15
+    },
+    "transport": {
+      "voiture_thermique_km": 0.218,
+      "voiture_electrique_km": 0.085,
+      "bus_km": 0.068,
+      "train_km": 0.0035,
+      "avion_court_km": 0.258,
+      "avion_long_km": 0.195,
+      "velo_km": 0.0,
+      "trottinette_electrique_km": 0.015,
+      "metro_km": 0.0032,
+      "tramway_km": 0.0028
+    },
+    "energy": {
+      "electricite_france": 0.055,
+      "electricite_europe": 0.285,
+      "gaz_naturel_kwh": 0.205,
+      "fioul_kwh": 0.324,
+      "charbon_kwh": 0.986,
+      "biomasse_kwh": 0.032,
+      "solaire_kwh": 0.025,
+      "eolien_kwh": 0.012
+    },
+    "packaging": {
+      "plastique_vierge": 3.1,
+      "plastique_recycle": 1.8,
+      "carton_vierge": 1.2,
+      "carton_recycle": 0.65,
+      "verre_vierge": 0.85,
+      "verre_recycle": 0.42,
+      "aluminium_vierge": 11.2,
+      "aluminium_recycle": 1.05,
+      "acier_vierge": 2.2,
+      "acier_recycle": 0.72,
+      "papier_vierge": 1.08,
+      "papier_recycle": 0.55
+    }
+  },
+  "bonus_malus": {
+    "labels": {
+      "bio": -0.15,
+      "label_rouge": -0.10,
+      "aoc_aop": -0.08,
+      "commerce_equitable": -0.05,
+      "msc_peche_durable": -0.12,
+      "rainforest_alliance": -0.08,
+      "bleu_blanc_coeur": -0.06
+    },
+    "origin": {
+      "local_moins_100km": -0.20,
+      "france": -0.10,
+      "europe": 0.0,
+      "hors_europe": 0.15,
+      "avion": 0.35
+    },
+    "packaging": {
+      "vrac": -0.15,
+      "recyclable": -0.05,
+      "non_recyclable": 0.10,
+      "plastique_vierge": 0.15,
+      "suremballage": 0.20
+    },
+    "season": {
+      "de_saison": -0.10,
+      "hors_saison_serre_chauffee": 0.25,
+      "hors_saison_import": 0.20
+    }
+  }
+}

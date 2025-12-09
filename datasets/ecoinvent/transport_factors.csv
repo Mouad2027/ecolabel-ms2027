@@ -1,0 +1,16 @@
+transport_mode,co2_kg_per_tkm,energy_mj_per_tkm,description,load_factor
+truck_diesel,0.062,0.85,Heavy goods vehicle diesel,0.85
+truck_electric,0.025,0.45,Electric heavy goods vehicle,0.85
+van_diesel,0.12,1.65,Delivery van diesel,0.70
+van_electric,0.05,0.75,Electric delivery van,0.70
+rail_freight,0.022,0.35,Freight train electric,0.90
+rail_freight_diesel,0.035,0.55,Freight train diesel,0.90
+ship_container,0.008,0.12,Container ship ocean,0.95
+ship_bulk,0.005,0.08,Bulk carrier ocean,0.95
+air_freight,0.602,8.50,Air cargo freight,0.75
+air_freight_long,0.552,7.80,Long haul air freight,0.80
+barge_inland,0.032,0.45,Inland waterway barge,0.85
+pipeline_liquid,0.005,0.08,Pipeline liquid transport,0.95
+pipeline_gas,0.008,0.12,Pipeline gas transport,0.90
+bicycle_cargo,0.0,0.01,Cargo bicycle delivery,0.60
+walking,0.0,0.0,Walking delivery,0.30

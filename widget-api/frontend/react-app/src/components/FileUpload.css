@@ -1,0 +1,179 @@
+.file-upload {
+  width: 100%;
+  margin: 20px 0;
+}
+
+.upload-area {
+  border: 2px dashed #cbd5e0;
+  border-radius: 12px;
+  padding: 40px 20px;
+  text-align: center;
+  background: #f8fafc;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.upload-area:hover {
+  border-color: #4299e1;
+  background: #ebf8ff;
+}
+
+.upload-area.drag-active {
+  border-color: #48bb78;
+  background: #f0fff4;
+  transform: scale(1.02);
+}
+
+.upload-area.uploading {
+  border-color: #ed8936;
+  background: #fffaf0;
+  cursor: wait;
+  pointer-events: none;
+}
+
+.file-input {
+  display: none;
+}
+
+.upload-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.upload-icon {
+  font-size: 48px;
+  margin-bottom: 8px;
+}
+
+.upload-title {
+  font-size: 18px;
+  color: #2d3748;
+  margin: 0;
+}
+
+.upload-title strong {
+  color: #2b6cb0;
+}
+
+.upload-subtitle {
+  font-size: 14px;
+  color: #718096;
+  margin: 0;
+}
+
+.upload-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(102, 126, 234, 0.3);
+}
+
+.upload-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(102, 126, 234, 0.4);
+}
+
+.upload-button:active {
+  transform: translateY(0);
+}
+
+.upload-hint {
+  font-size: 13px;
+  color: #a0aec0;
+  margin: 4px 0;
+}
+
+.spinner {
+  border: 3px solid #e2e8f0;
+  border-top: 3px solid #ed8936;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.upload-message {
+  margin-top: 16px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.upload-message.error {
+  background: #fff5f5;
+  border: 1px solid #fc8181;
+  color: #c53030;
+}
+
+.upload-message.success {
+  background: #f0fff4;
+  border: 1px solid #68d391;
+  color: #22543d;
+}
+
+.upload-message button {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+  padding: 0 4px;
+}
+
+.upload-message button:hover {
+  opacity: 1;
+}
+
+/* Mobile responsive */
+@media (max-width: 640px) {
+  .upload-area {
+    padding: 30px 15px;
+  }
+
+  .upload-icon {
+    font-size: 36px;
+  }
+
+  .upload-title {
+    font-size: 16px;
+  }
+
+  .upload-button {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  .upload-hint {
+    font-size: 12px;
+  }
+}

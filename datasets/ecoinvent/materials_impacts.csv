@@ -1,0 +1,21 @@
+material_id,material_name,co2_kg_per_kg,water_l_per_kg,energy_mj_per_kg,category,source
+MAT001,Recycled Paper,0.8,25,8,packaging,ecoinvent_3.8
+MAT002,Virgin Cardboard,1.2,45,15,packaging,ecoinvent_3.8
+MAT003,HDPE Plastic,2.5,20,78,packaging,ecoinvent_3.8
+MAT004,PET Plastic,3.1,28,85,packaging,ecoinvent_3.8
+MAT005,Recycled PET,1.8,15,45,packaging,ecoinvent_3.8
+MAT006,Glass,0.9,12,15,packaging,ecoinvent_3.8
+MAT007,Recycled Glass,0.5,8,10,packaging,ecoinvent_3.8
+MAT008,Aluminum,11.5,35,170,packaging,ecoinvent_3.8
+MAT009,Recycled Aluminum,1.2,10,18,packaging,ecoinvent_3.8
+MAT010,Steel,2.3,25,32,packaging,ecoinvent_3.8
+MAT011,Recycled Steel,0.8,12,15,packaging,ecoinvent_3.8
+MAT012,Bio-plastic PLA,2.0,55,65,packaging,ecoinvent_3.8
+MAT013,Wood,0.3,200,5,packaging,ecoinvent_3.8
+MAT014,Cotton,5.5,10000,60,textile,ecoinvent_3.8
+MAT015,Organic Cotton,3.5,7000,45,textile,ecoinvent_3.8
+MAT016,Polyester,5.5,20,125,textile,ecoinvent_3.8
+MAT017,Recycled Polyester,2.5,12,55,textile,ecoinvent_3.8
+MAT018,Linen,0.9,6000,10,textile,ecoinvent_3.8
+MAT019,Wool,25.0,15000,150,textile,ecoinvent_3.8
+MAT020,Nylon,7.5,35,150,textile,ecoinvent_3.8

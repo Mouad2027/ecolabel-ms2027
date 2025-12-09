@@ -1,0 +1,305 @@
+services:
+  # =============================================================================
+  # INFRASTRUCTURE SERVICES
+  # =============================================================================
+  
+  postgres:
+    image: postgres:15-alpine
+    container_name: ecolabel-postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_MULTIPLE_DATABASES: parser_db,nlp_db,lca_db,scoring_db,widget_db,provenance_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init-multi-db.sh:/docker-entrypoint-initdb.d/init-multi-db.sh
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - ecolabel-network
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: ecolabel-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-admin@ecolabel.local}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-admin}
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - ecolabel-network
+
+  minio:
+    image: minio/minio:latest
+    container_name: ecolabel-minio
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin123}
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    networks:
+      - ecolabel-network
+
+  # MinIO bucket initialization
+  minio-init:
+    image: minio/mc:latest
+    container_name: ecolabel-minio-init
+    depends_on:
+      minio:
+        condition: service_healthy
+    entrypoint: >
+      /bin/sh -c "
+      mc alias set myminio http://minio:9000 minioadmin minioadmin123;
+      mc mb myminio/ecolabel-artifacts --ignore-existing;
+      mc mb myminio/ecolabel-datasets --ignore-existing;
+      mc mb myminio/ecolabel-provenance --ignore-existing;
+      mc mb myminio/ecolabel-models --ignore-existing;
+      echo 'Buckets created successfully';
+      "
+    networks:
+      - ecolabel-network
+
+  # =============================================================================
+  # MICROSERVICES
+  # =============================================================================
+
+  parser-produit:
+    build:
+      context: ./parser-produit
+      dockerfile: Dockerfile
+    container_name: ecolabel-parser
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/parser_db
+      MINIO_ENDPOINT: minio:9000
+      MINIO_ACCESS_KEY: ${MINIO_ROOT_USER:-minioadmin}
+      MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD:-minioadmin123}
+      MINIO_BUCKET: ecolabel-artifacts
+    ports:
+      - "8001:8001"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    volumes:
+      - ./datasets:/app/datasets:ro
+    networks:
+      - ecolabel-network
+    restart: unless-stopped
+
+  nlp-ingredients:
+    build:
+      context: ./nlp-ingredients
+      dockerfile: Dockerfile
+    container_name: ecolabel-nlp
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/nlp_db
+      MINIO_ENDPOINT: minio:9000
+      MINIO_ACCESS_KEY: ${MINIO_ROOT_USER:-minioadmin}
+      MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD:-minioadmin123}
+      MINIO_BUCKET: ecolabel-models
+      SPACY_MODEL: fr_core_news_md
+      BERT_MODEL: bert-base-multilingual-cased
+    ports:
+      - "8002:8002"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./datasets:/app/datasets:ro
+      - nlp_models:/app/models
+    networks:
+      - ecolabel-network
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+
+  lca-lite:
+    build:
+      context: ./lca-lite
+      dockerfile: Dockerfile
+    container_name: ecolabel-lca
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/lca_db
+      MINIO_ENDPOINT: minio:9000
+      MINIO_ACCESS_KEY: ${MINIO_ROOT_USER:-minioadmin}
+      MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD:-minioadmin123}
+      MINIO_BUCKET: ecolabel-datasets
+      DATASETS_PATH: /app/datasets
+    ports:
+      - "8003:8003"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    volumes:
+      - ./datasets:/app/datasets:ro
+    networks:
+      - ecolabel-network
+    restart: unless-stopped
+
+  scoring:
+    build:
+      context: ./scoring
+      dockerfile: Dockerfile
+    container_name: ecolabel-scoring
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/scoring_db
+      MINIO_ENDPOINT: minio:9000
+      MINIO_ACCESS_KEY: ${MINIO_ROOT_USER:-minioadmin}
+      MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD:-minioadmin123}
+      DATASETS_PATH: /app/datasets
+    ports:
+      - "8004:8004"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./datasets:/app/datasets:ro
+    networks:
+      - ecolabel-network
+    restart: unless-stopped
+
+  widget-api:
+    build:
+      context: ./widget-api/backend
+      dockerfile: Dockerfile
+    container_name: ecolabel-widget-api
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/widget_db
+      PARSER_SERVICE_URL: http://parser-produit:8001
+      NLP_SERVICE_URL: http://nlp-ingredients:8002
+      LCA_SERVICE_URL: http://lca-lite:8003
+      SCORING_SERVICE_URL: http://scoring:8004
+      PROVENANCE_SERVICE_URL: http://provenance:8006
+    ports:
+      - "8005:8005"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      parser-produit:
+        condition: service_started
+      nlp-ingredients:
+        condition: service_started
+      lca-lite:
+        condition: service_started
+      scoring:
+        condition: service_started
+    networks:
+      - ecolabel-network
+    restart: unless-stopped
+
+  provenance:
+    build:
+      context: ./provenance
+      dockerfile: Dockerfile
+    container_name: ecolabel-provenance
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/provenance_db
+      MLFLOW_TRACKING_URI: http://mlflow:5000
+      MINIO_ENDPOINT: minio:9000
+      MINIO_ACCESS_KEY: ${MINIO_ROOT_USER:-minioadmin}
+      MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD:-minioadmin123}
+    ports:
+      - "8006:8006"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - provenance_data:/app/data
+    networks:
+      - ecolabel-network
+    restart: unless-stopped
+
+  # =============================================================================
+  # OPTIONAL: MLFLOW FOR EXPERIMENT TRACKING
+  # =============================================================================
+
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v2.9.2
+    container_name: ecolabel-mlflow
+    command: >
+      mlflow server
+      --backend-store-uri postgresql://postgres:postgres@postgres:5432/provenance_db
+      --default-artifact-root s3://ecolabel-models/
+      --host 0.0.0.0
+      --port 5000
+    environment:
+      MLFLOW_S3_ENDPOINT_URL: http://minio:9000
+      AWS_ACCESS_KEY_ID: ${MINIO_ROOT_USER:-minioadmin}
+      AWS_SECRET_ACCESS_KEY: ${MINIO_ROOT_PASSWORD:-minioadmin123}
+    ports:
+      - "5000:5000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    networks:
+      - ecolabel-network
+    restart: unless-stopped
+
+  # =============================================================================
+  # OPTIONAL: REACT FRONTEND
+  # =============================================================================
+
+  widget-frontend:
+    build:
+      context: ./widget-api/frontend/react-app
+      dockerfile: Dockerfile
+    container_name: ecolabel-frontend
+    environment:
+      VITE_API_URL: http://localhost:8005/public
+    ports:
+      - "3000:80"
+    depends_on:
+      - widget-api
+    networks:
+      - ecolabel-network
+    restart: unless-stopped
+
+# =============================================================================
+# NETWORKS
+# =============================================================================
+
+networks:
+  ecolabel-network:
+    driver: bridge
+    name: ecolabel-network
+
+# =============================================================================
+# VOLUMES
+# =============================================================================
+
+volumes:
+  postgres_data:
+    name: ecolabel-postgres-data
+  pgadmin_data:
+    name: ecolabel-pgadmin-data
+  minio_data:
+    name: ecolabel-minio-data
+  nlp_models:
+    name: ecolabel-nlp-models
+  provenance_data:
+    name: ecolabel-provenance-data
