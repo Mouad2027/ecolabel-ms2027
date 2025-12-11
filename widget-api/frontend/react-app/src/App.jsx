@@ -23,20 +23,44 @@ function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>🌿 EcoLabel Widget</h1>
-        <p>Environmental Score Display System</p>
+        <div className="header-container">
+          <div className="header-brand">
+            <h1>🌿 EcoLabel-MS</h1>
+            <p>Plateforme d'évaluation environnementale intelligente</p>
+          </div>
+          <div className="header-search">
+            <ProductSearch onProductSelect={setSelectedProduct} />
+          </div>
+        </div>
       </header>
 
       <main className="app-main">
-        <section className="search-section">
-          <h2>Find a Product</h2>
-          <ProductSearch onProductSelect={setSelectedProduct} />
+        <section className="hero-section">
+          <div className="hero-content">
+            <h2>Évaluez l'impact environnemental de vos produits</h2>
+            <p className="hero-subtitle">Obtenez un éco-score précis basé sur des données scientifiques en quelques secondes</p>
+            
+            <div className="features-row">
+              <div className="feature-badge">
+                <span className="badge-icon">🔬</span>
+                <span>Données FAO & Ecoinvent</span>
+              </div>
+              <div className="feature-badge">
+                <span className="badge-icon">⚡</span>
+                <span>Résultats instantanés</span>
+              </div>
+              <div className="feature-badge">
+                <span className="badge-icon">🌍</span>
+                <span>100% gratuit</span>
+              </div>
+            </div>
+          </div>
         </section>
 
         <section className="upload-section">
-          <h2>📸 Upload Product Information</h2>
+          <h2>📸 Analyser un produit</h2>
           <p className="section-description">
-            Upload a photo, PDF label, or barcode image to extract product information
+            Téléchargez une photo, un PDF ou scannez un code-barres pour extraire les informations
           </p>
           <FileUpload onProductParsed={handleProductParsed} />
         </section>

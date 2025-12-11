@@ -20,23 +20,24 @@ class ScoreNormalizer:
     
     # Reference values for normalization (typical product ranges)
     # Based on average food product impacts per kg
+    # STRICT THRESHOLDS - Only low-impact foods get good scores
     REFERENCE_RANGES = {
         "co2": {
             "min": 0.1,    # Very low impact (vegetables)
-            "max": 30.0,   # Very high impact (beef)
-            "median": 2.5,
+            "max": 3.0,    # Moderate impact (most processed foods should score poorly)
+            "median": 1.5,
             "unit": "kg CO2e/kg"
         },
         "water": {
             "min": 100,     # Low water footprint
-            "max": 20000,   # High water footprint
-            "median": 1500,
+            "max": 1500,    # Moderate water footprint (strict threshold)
+            "median": 800,
             "unit": "L/kg"
         },
         "energy": {
             "min": 1.0,    # Low energy
-            "max": 50.0,   # High energy
-            "median": 10.0,
+            "max": 8.0,    # Moderate energy (strict threshold)
+            "median": 4.0,
             "unit": "MJ/kg"
         }
     }
@@ -117,6 +118,18 @@ class ScoreNormalizer:
         energy: float
     ) -> Dict[str, float]:
         """Normalize using scikit-learn scalers"""
+        # Handle near-zero values (exceptional products like pure water)
+        # If all impacts are negligible, assign excellent scores
+        if co2 < 0.01 and water < 10 and energy < 0.5:
+            return {
+                "co2_normalized": 0.0,
+                "water_normalized": 0.0,
+                "energy_normalized": 0.0,
+                "co2_raw": co2,
+                "water_raw": water,
+                "energy_raw": energy
+            }
+        
         # Transform values
         co2_normalized = self.co2_scaler.transform([[co2]])[0][0]
         water_normalized = self.water_scaler.transform([[water]])[0][0]
@@ -143,6 +156,17 @@ class ScoreNormalizer:
         energy: float
     ) -> Dict[str, float]:
         """Normalize using manual min-max scaling"""
+        # Handle near-zero values (exceptional products like pure water)
+        if co2 < 0.01 and water < 10 and energy < 0.5:
+            return {
+                "co2_normalized": 0.0,
+                "water_normalized": 0.0,
+                "energy_normalized": 0.0,
+                "co2_raw": co2,
+                "water_raw": water,
+                "energy_raw": energy
+            }
+        
         def scale(value: float, min_val: float, max_val: float) -> float:
             if max_val == min_val:
                 return 50.0

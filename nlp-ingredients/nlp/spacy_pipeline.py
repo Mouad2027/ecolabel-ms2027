@@ -132,6 +132,15 @@ class SpacyPipeline:
         result["materials"] = list(set(result["materials"] + regex_results["materials"]))
         result["labels"] = list(set(result["labels"] + regex_results["labels"]))
         
+        # If no ingredients found, treat entire text as ingredient list
+        if not result["ingredients"]:
+            # Split by common delimiters
+            parts = re.split(r'[,;•\n]', text)
+            result["ingredients"] = [
+                part.strip() for part in parts 
+                if part.strip() and len(part.strip()) > 2
+            ]
+        
         return result
     
     def _spacy_extraction(self, text: str, nlp) -> Dict[str, Any]:

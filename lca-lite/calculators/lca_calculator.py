@@ -68,6 +68,18 @@ class LCACalculator:
         "tea": 1.9,
         "soy": 0.4,
         "chocolate": 5.0,
+        
+        # Minerals (trace amounts in water - minimal impact)
+        "sodium": 0.001,
+        "calcium": 0.001,
+        "magnesium": 0.001,
+        "potassium": 0.001,
+        "bicarbonates": 0.001,
+        "sulfates": 0.001,
+        "chlorides": 0.001,
+        "chlorures": 0.001,
+        "nitrates": 0.001,
+        "fluorides": 0.001,
     }
     
     # Water consumption factors (liters per kg)
@@ -95,6 +107,20 @@ class LCACalculator:
         "sunflower_oil": 6800,
         "soy": 2145,
         "water": 1,
+        "cocoa": 27000,
+        "cocoa_bean": 27000,
+        
+        # Minerals (dissolved in water - no additional water needed)
+        "sodium": 1,
+        "calcium": 1,
+        "magnesium": 1,
+        "potassium": 1,
+        "bicarbonates": 1,
+        "sulfates": 1,
+        "chlorides": 1,
+        "chlorures": 1,
+        "nitrates": 1,
+        "fluorides": 1,
     }
     
     # Energy factors (MJ per kg)
@@ -110,6 +136,20 @@ class LCACalculator:
         "sugar": 5.5,
         "vegetable_oil_generic": 8.0,
         "chocolate": 15.0,
+        "cocoa": 25.0,
+        "cocoa_bean": 25.0,
+        
+        # Minerals (no processing energy - dissolved naturally)
+        "sodium": 0.1,
+        "calcium": 0.1,
+        "magnesium": 0.1,
+        "potassium": 0.1,
+        "bicarbonates": 0.1,
+        "sulfates": 0.1,
+        "chlorides": 0.1,
+        "chlorures": 0.1,
+        "nitrates": 0.1,
+        "fluorides": 0.1,
     }
     
     # Packaging impact factors

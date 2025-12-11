@@ -55,6 +55,18 @@ class IngredientMapper:
         "vanilla": {"ecoinvent_id": "vanilla", "category": "spice", "unit": "kg"},
         "cinnamon": {"ecoinvent_id": "cinnamon", "category": "spice", "unit": "kg"},
         "pepper": {"ecoinvent_id": "pepper", "category": "spice", "unit": "kg"},
+        
+        # Minerals (for mineral water)
+        "sodium": {"ecoinvent_id": "water", "category": "mineral", "unit": "kg"},
+        "calcium": {"ecoinvent_id": "water", "category": "mineral", "unit": "kg"},
+        "magnesium": {"ecoinvent_id": "water", "category": "mineral", "unit": "kg"},
+        "potassium": {"ecoinvent_id": "water", "category": "mineral", "unit": "kg"},
+        "bicarbonates": {"ecoinvent_id": "water", "category": "mineral", "unit": "kg"},
+        "sulfates": {"ecoinvent_id": "water", "category": "mineral", "unit": "kg"},
+        "chlorures": {"ecoinvent_id": "water", "category": "mineral", "unit": "kg"},
+        "chlorides": {"ecoinvent_id": "water", "category": "mineral", "unit": "kg"},
+        "nitrates": {"ecoinvent_id": "water", "category": "mineral", "unit": "kg"},
+        "fluorides": {"ecoinvent_id": "water", "category": "mineral", "unit": "kg"},
     }
     
     # Synonym mappings
@@ -97,6 +109,57 @@ class IngredientMapper:
         "aceite de palma": "palm oil",
         "huile de tournesol": "sunflower oil",
         "huile d'olive": "olive oil",
+        
+        # Vegetables (French)
+        "tomate": "tomato",
+        "tomates": "tomato",
+        "tomate cerise": "tomato",
+        "tomates cerises": "tomato",
+        "tomates cerise": "tomato",
+        "tomates cerise allongées": "tomato",
+        "pomme de terre": "potato",
+        "pommes de terre": "potato",
+        "oignon": "onion",
+        "oignons": "onion",
+        "carotte": "carrot",
+        "carottes": "carrot",
+        "laitue": "lettuce",
+        "salade": "lettuce",
+        "chou": "cabbage",
+        "épinard": "spinach",
+        "épinards": "spinach",
+        "brocoli": "broccoli",
+        "haricot": "beans",
+        "haricots": "beans",
+        "haricots verts": "beans",
+        "pois": "peas",
+        "concombre": "cucumber",
+        "courgette": "zucchini",
+        "aubergine": "eggplant",
+        "poivron": "pepper",
+        "poivrons": "pepper",
+        
+        # Fruits (French)
+        "pomme": "apple",
+        "pommes": "apple",
+        "orange": "orange",
+        "oranges": "orange",
+        "banane": "banana",
+        "bananes": "banana",
+        "fraise": "strawberry",
+        "fraises": "strawberry",
+        "raisin": "grape",
+        "raisins": "grape",
+        "mangue": "mango",
+        
+        # Minerals (French)
+        "magnésium": "magnesium",
+        "magnèsium": "magnesium",
+        "bicarbonate": "bicarbonates",
+        "sulfate": "sulfates",
+        "chlorure": "chlorides",
+        "nitrate": "nitrates",
+        "fluorure": "fluorides",
     }
     
     def __init__(self, ecoinvent_path: Optional[str] = None):

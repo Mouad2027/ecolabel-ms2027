@@ -200,7 +200,7 @@ async def create_product_and_score(
         if product_data.get("ingredients_text"):
             logger.info(f"Calling NLP service with ingredients: {product_data.get('ingredients_text')[:100]}")
             try:
-                async with httpx.AsyncClient(timeout=30.0) as client:
+                async with httpx.AsyncClient(timeout=90.0) as client:
                     nlp_response = await client.post(
                         f"{NLP_SERVICE}/nlp/extract",
                         json={"text": product_data["ingredients_text"]}
@@ -221,18 +221,31 @@ async def create_product_and_score(
         if nlp_data.get("ingredients"):
             logger.info(f"Calling LCA service with {len(nlp_data['ingredients'])} ingredients")
             
-            # Add default weights to ingredients (assume 1kg total product, distribute evenly)
+            # Smart weight distribution based on ingredient order (regulatory requirement: descending order)
+            # First ingredients = higher percentage
             total_ingredients = len(nlp_data["ingredients"])
             ingredients_with_weights = []
             
+            # Calculate weights using exponential decay for realistic distribution
+            # First ingredient: ~30-40%, then decreasing rapidly
+            raw_weights = []
+            for idx in range(total_ingredients):
+                # Exponential decay: weight = e^(-0.25 * position) for more aggressive distribution
+                raw_weight = 2.71828 ** (-0.25 * idx)
+                raw_weights.append(raw_weight)
+            
+            # Normalize to sum to 1.0
+            total_raw = sum(raw_weights)
+            normalized_weights = [w / total_raw for w in raw_weights]
+            
             for idx, ingredient in enumerate(nlp_data["ingredients"]):
-                # Use percentage if available, otherwise distribute evenly
+                # Use percentage if explicitly provided, otherwise use calculated weight
                 if isinstance(ingredient, dict):
                     percentage = ingredient.get("percentage")
                     if percentage:
                         weight = percentage / 100.0  # Convert percentage to kg
                     else:
-                        weight = 1.0 / total_ingredients  # Equal distribution
+                        weight = normalized_weights[idx]  # Smart distribution
                     
                     ingredients_with_weights.append({
                         "name": ingredient.get("name", str(ingredient)),
@@ -244,7 +257,7 @@ async def create_product_and_score(
                     # If ingredient is just a string
                     ingredients_with_weights.append({
                         "name": str(ingredient),
-                        "weight": 1.0 / total_ingredients,
+                        "weight": normalized_weights[idx],
                         "ecoinvent_id": None,
                         "origin": product_data.get("origin")
                     })
@@ -252,7 +265,7 @@ async def create_product_and_score(
             logger.info(f"Ingredients with weights: {ingredients_with_weights}")
             
             try:
-                async with httpx.AsyncClient(timeout=30.0) as client:
+                async with httpx.AsyncClient(timeout=90.0) as client:
                     lca_response = await client.post(
                         f"{LCA_SERVICE}/lca/calc",
                         json={
@@ -277,17 +290,17 @@ async def create_product_and_score(
         if lca_data:
             logger.info("Calling Scoring service")
             try:
-                async with httpx.AsyncClient(timeout=30.0) as client:
+                async with httpx.AsyncClient(timeout=90.0) as client:
                     score_response = await client.post(
                         f"{SCORING_SERVICE}/score/compute",
                         json={
-                            "product_id": product_data.get("gtin", ""),
-                            "co2": lca_data.get("co2", 0),
-                            "water": lca_data.get("water", 0),
-                            "energy": lca_data.get("energy", 0),
-                            "ingredients": nlp_data.get("ingredients", []),
-                            "origin": product_data.get("origin"),
-                            "packaging": product_data.get("packaging")
+                            "indicators": {
+                                "co2": lca_data.get("co2", 0),
+                                "water": lca_data.get("water", 0),
+                                "energy": lca_data.get("energy", 0),
+                                "product_id": product_data.get("gtin", "")
+                            },
+                            "product_weight_kg": 1.0
                         }
                     )
                     logger.info(f"Scoring response status: {score_response.status_code}")

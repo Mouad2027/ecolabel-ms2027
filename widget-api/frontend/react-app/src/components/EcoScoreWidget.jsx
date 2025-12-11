@@ -96,9 +96,12 @@ function EcoScoreWidget({ productId, demoMode = false, demoData = null }) {
       {/* Numeric Score */}
       <div className="score-numeric">
         <span>Score: {eco_score.numeric}/100</span>
+        <span className="score-explanation">
+          ({eco_score.numeric < 40 ? 'Faible impact' : eco_score.numeric < 60 ? 'Impact modéré' : 'Impact élevé'})
+        </span>
         {eco_score.confidence && (
           <span className="confidence">
-            Confidence: {Math.round(eco_score.confidence * 100)}%
+            Confiance: {Math.round(eco_score.confidence * 100)}%
           </span>
         )}
       </div>
@@ -182,7 +185,11 @@ function EcoScoreWidget({ productId, demoMode = false, demoData = null }) {
         <div className="ingredients-section">
           <span className="ingredients-label">Main ingredients: </span>
           <span className="ingredients-list">
-            {ingredients.slice(0, 4).join(', ')}
+            {ingredients
+              .slice(0, 4)
+              .map(ing => typeof ing === 'string' ? ing : ing.name || ing.normalized_name)
+              .filter(Boolean)
+              .join(', ')}
             {ingredients.length > 4 && ` +${ingredients.length - 4} more`}
           </span>
         </div>
