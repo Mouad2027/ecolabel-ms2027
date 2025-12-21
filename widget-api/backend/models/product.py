@@ -32,6 +32,9 @@ class ProductDB(Base):
     water = Column(Float, nullable=True)
     energy = Column(Float, nullable=True)
     
+    # Product weight
+    weight_g = Column(Float, nullable=True)  # Weight in grams
+    
     # Extracted data
     ingredients = Column(JSON, default=list)
     origins = Column(JSON, default=list)
@@ -56,6 +59,7 @@ class ProductCreate(BaseModel):
     co2: Optional[float] = None
     water: Optional[float] = None
     energy: Optional[float] = None
+    weight_g: Optional[float] = None
     ingredients: Optional[List] = []
     origins: Optional[List] = []
     labels: Optional[List] = []
@@ -67,6 +71,7 @@ class ProductResponse(BaseModel):
     title: Optional[str] = None
     brand: Optional[str] = None
     gtin: Optional[str] = None
+    weight_g: Optional[float] = None
     eco_score: dict
     breakdown: dict
     ingredients: List = []

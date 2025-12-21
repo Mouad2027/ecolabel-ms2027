@@ -51,6 +51,12 @@ htmlcov/
 .DS_Store
 Thumbs.db
 
+# Database files
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
 # Data files (keep structure, ignore large files)
 datasets/**/*.parquet
 datasets/**/*.h5

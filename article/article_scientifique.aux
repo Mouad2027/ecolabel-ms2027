@@ -1,0 +1,152 @@
+\relax 
+\providecommand \babel@aux [2]{\global \let \babel@toc \@gobbletwo }
+\@nameuse{bbl@beforestart}
+\catcode `:\active 
+\catcode `;\active 
+\catcode `!\active 
+\catcode `?\active 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\babel@aux{french}{}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{2}{section.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}Contexte et motivation}{2}{subsection.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2}Problématique scientifique}{2}{subsection.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3}Contributions}{2}{subsection.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}État de l'art}{2}{section.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Analyse du cycle de vie des produits alimentaires}{2}{subsection.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Systèmes d'étiquetage environnemental}{3}{subsection.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Traitement automatique pour l'extraction d'informations produits}{3}{subsection.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Méthodologie}{3}{section.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Architecture globale du système}{3}{subsection.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Extraction et traitement des données produits}{3}{subsection.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.1}Parsing multi-format}{3}{subsubsection.3.2.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Vue d'ensemble de l'architecture microservices EcoLabel-MS2027 montrant les 6 services (Parser-Produit, NLP-Ingredients, LCA-Lite, Scoring, Provenance, Widget-API), leurs interactions via API REST, les bases PostgreSQL, et les sources de données externes (ADEME, FAO, EcoInvent, OpenFoodFacts).}}{4}{figure.caption.1}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:architecture_overview}{{1}{4}{Vue d'ensemble de l'architecture microservices EcoLabel-MS2027 montrant les 6 services (Parser-Produit, NLP-Ingredients, LCA-Lite, Scoring, Provenance, Widget-API), leurs interactions via API REST, les bases PostgreSQL, et les sources de données externes (ADEME, FAO, EcoInvent, OpenFoodFacts)}{figure.caption.1}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.2}Pipeline TAL pour extraction d'ingrédients}{4}{subsubsection.3.2.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Architecture microservices d'EcoLabel-MS2027. Les rectangles bleus représentent les microservices, les cylindres verts les bases de données PostgreSQL, et les rectangles oranges les sources de données externes.}}{5}{figure.caption.2}\protected@file@percent }
+\newlabel{fig:architecture}{{2}{5}{Architecture microservices d'EcoLabel-MS2027. Les rectangles bleus représentent les microservices, les cylindres verts les bases de données PostgreSQL, et les rectangles oranges les sources de données externes}{figure.caption.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Diagramme de cas d'usage du service Parser-Produit. Le système accepte trois types d'entrées (PDF, HTML, images) et intègre l'API OpenFoodFacts pour enrichir les données via code-barres.}}{6}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:parser_usecase}{{3}{6}{Diagramme de cas d'usage du service Parser-Produit. Le système accepte trois types d'entrées (PDF, HTML, images) et intègre l'API OpenFoodFacts pour enrichir les données via code-barres}{figure.caption.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Diagramme de classes du service Parser-Produit montrant les modules de parsing spécialisés (PDFParser, HTMLParser, ImageParser) et leur interaction avec les services externes (OpenFoodFacts, base de données).}}{6}{figure.caption.4}\protected@file@percent }
+\newlabel{fig:parser_class}{{4}{6}{Diagramme de classes du service Parser-Produit montrant les modules de parsing spécialisés (PDFParser, HTMLParser, ImageParser) et leur interaction avec les services externes (OpenFoodFacts, base de données)}{figure.caption.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Diagramme de cas d'usage du service NLP-Ingredients montrant l'extraction d'entités, la classification BERT, et le mapping vers la taxonomie EcoInvent.}}{7}{figure.caption.5}\protected@file@percent }
+\newlabel{fig:nlp_usecase}{{5}{7}{Diagramme de cas d'usage du service NLP-Ingredients montrant l'extraction d'entités, la classification BERT, et le mapping vers la taxonomie EcoInvent}{figure.caption.5}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.3}Flux de traitement complet}{7}{subsubsection.3.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Calcul d'analyse du cycle de vie (ACV)}{7}{subsection.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.1}Facteurs d'impact de référence}{7}{subsubsection.3.3.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Diagramme de classes du service NLP-Ingredients avec les pipelines spaCy, le classificateur BERT (CamemBERT fine-tuné), et le module IngredientMapper pour la correspondance taxonomique.}}{8}{figure.caption.6}\protected@file@percent }
+\newlabel{fig:nlp_class}{{6}{8}{Diagramme de classes du service NLP-Ingredients avec les pipelines spaCy, le classificateur BERT (CamemBERT fine-tuné), et le module IngredientMapper pour la correspondance taxonomique}{figure.caption.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Diagramme de séquence du flux de traitement d'un produit. Le temps de traitement total moyen est de 757 ms.}}{8}{figure.caption.7}\protected@file@percent }
+\newlabel{fig:sequence}{{7}{8}{Diagramme de séquence du flux de traitement d'un produit. Le temps de traitement total moyen est de 757 ms}{figure.caption.7}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.2}Calcul de l'impact des ingrédients}{8}{subsubsection.3.3.2}\protected@file@percent }
+\newlabel{eq:co2_total}{{3}{8}{Calcul de l'impact des ingrédients}{equation.3}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Facteurs d'impact par catégorie d'ingrédient (valeurs moyennes)}}{9}{table.caption.8}\protected@file@percent }
+\newlabel{tab:impact_factors}{{1}{9}{Facteurs d'impact par catégorie d'ingrédient (valeurs moyennes)}{table.caption.8}{}}
+\newlabel{eq:water_total}{{4}{9}{Calcul de l'impact des ingrédients}{equation.4}{}}
+\newlabel{eq:energy_total}{{5}{9}{Calcul de l'impact des ingrédients}{equation.5}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.3}Impact du transport}{9}{subsubsection.3.3.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Facteurs d'émission par mode de transport}}{9}{table.caption.9}\protected@file@percent }
+\newlabel{tab:transport_factors}{{2}{9}{Facteurs d'émission par mode de transport}{table.caption.9}{}}
+\newlabel{eq:transport}{{6}{9}{Impact du transport}{equation.6}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.4}Impact de l'emballage}{10}{subsubsection.3.3.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Impact environnemental des emballages}}{10}{table.caption.10}\protected@file@percent }
+\newlabel{tab:packaging_impact}{{3}{10}{Impact environnemental des emballages}{table.caption.10}{}}
+\newlabel{eq:packaging}{{7}{10}{Impact de l'emballage}{equation.7}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.5}Impact total}{10}{subsubsection.3.3.5}\protected@file@percent }
+\newlabel{eq:total_impact}{{8}{10}{Impact total}{equation.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Normalisation et scoring environnemental}{10}{subsection.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.1}Normalisation des indicateurs}{10}{subsubsection.3.4.1}\protected@file@percent }
+\newlabel{eq:normalization}{{9}{10}{Normalisation des indicateurs}{equation.9}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.2}Agrégation pondérée}{10}{subsubsection.3.4.2}\protected@file@percent }
+\newlabel{eq:base_score}{{10}{10}{Agrégation pondérée}{equation.10}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.3}Bonus et malus}{11}{subsubsection.3.4.3}\protected@file@percent }
+\newlabel{eq:final_score}{{11}{11}{Bonus et malus}{equation.11}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.4}Attribution du grade}{11}{subsubsection.3.4.4}\protected@file@percent }
+\newlabel{eq:grade}{{12}{11}{Attribution du grade}{equation.12}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5}Traçabilité et reproductibilité}{11}{subsection.3.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Diagramme de cas d'usage du service Scoring montrant la normalisation des indicateurs, l'agrégation pondérée avec coefficients ADEME, et l'application des bonus/malus qualitatifs pour le grade final.}}{12}{figure.caption.11}\protected@file@percent }
+\newlabel{fig:scoring_usecase}{{8}{12}{Diagramme de cas d'usage du service Scoring montrant la normalisation des indicateurs, l'agrégation pondérée avec coefficients ADEME, et l'application des bonus/malus qualitatifs pour le grade final}{figure.caption.11}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.6}Diagrammes de composants des microservices}{12}{subsection.3.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}Résultats}{12}{section.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Jeu de données et validation}{12}{subsection.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.1}Constitution du corpus}{12}{subsubsection.4.1.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Diagramme de classes du service Scoring avec Normalizer (seuils ADEME), WeightedAggregator (coefficients par indicateur), BonusMalusEngine (règles qualitatives), et GradeCalculator pour l'attribution finale A-E.}}{13}{figure.caption.12}\protected@file@percent }
+\newlabel{fig:scoring_class}{{9}{13}{Diagramme de classes du service Scoring avec Normalizer (seuils ADEME), WeightedAggregator (coefficients par indicateur), BonusMalusEngine (règles qualitatives), et GradeCalculator pour l'attribution finale A-E}{figure.caption.12}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Diagramme de composants du microservice NLP-Ingredients. Les composants principaux sont l'API REST, le pipeline spaCy, le classificateur BERT et le module de mapping taxonomique.}}{13}{figure.caption.13}\protected@file@percent }
+\newlabel{fig:nlp_component}{{10}{13}{Diagramme de composants du microservice NLP-Ingredients. Les composants principaux sont l'API REST, le pipeline spaCy, le classificateur BERT et le module de mapping taxonomique}{figure.caption.13}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Diagramme de composants du microservice LCA-Lite. Le calculateur agrège les impacts des ingrédients, du transport et de l'emballage en utilisant les facteurs des bases de données environnementales.}}{14}{figure.caption.14}\protected@file@percent }
+\newlabel{fig:lca_component}{{11}{14}{Diagramme de composants du microservice LCA-Lite. Le calculateur agrège les impacts des ingrédients, du transport et de l'emballage en utilisant les facteurs des bases de données environnementales}{figure.caption.14}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.2}Performance du pipeline NLP}{14}{subsubsection.4.1.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Performance du pipeline NLP}}{14}{table.caption.17}\protected@file@percent }
+\newlabel{tab:nlp_performance}{{4}{14}{Performance du pipeline NLP}{table.caption.17}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Diagramme de cas d'usage du service LCA-Lite montrant le calcul d'impact carbone des ingrédients, du transport (avec distance et mode), et de l'emballage selon les facteurs ADEME/FAO/EcoInvent.}}{15}{figure.caption.15}\protected@file@percent }
+\newlabel{fig:lca_usecase}{{12}{15}{Diagramme de cas d'usage du service LCA-Lite montrant le calcul d'impact carbone des ingrédients, du transport (avec distance et mode), et de l'emballage selon les facteurs ADEME/FAO/EcoInvent}{figure.caption.15}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Validation des calculs d'ACV}{15}{subsection.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.1}Comparaison avec références ADEME}{15}{subsubsection.4.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.2}Analyse de sensibilité}{15}{subsubsection.4.2.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Diagramme de classes du service LCA-Lite avec LCACalculator pour les ingrédients, TransportCalculator pour la logistique, PackagingModule pour les matériaux, et l'Aggregator pour synthétiser CO$_2$, eau et énergie.}}{16}{figure.caption.16}\protected@file@percent }
+\newlabel{fig:lca_class}{{13}{16}{Diagramme de classes du service LCA-Lite avec LCACalculator pour les ingrédients, TransportCalculator pour la logistique, PackagingModule pour les matériaux, et l'Aggregator pour synthétiser CO$_2$, eau et énergie}{figure.caption.16}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Validation des calculs CO$_2$ (kg CO$_2$e/kg produit)}}{16}{table.caption.18}\protected@file@percent }
+\newlabel{tab:co2_validation}{{5}{16}{Validation des calculs CO$_2$ (kg CO$_2$e/kg produit)}{table.caption.18}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Distribution des scores}{16}{subsection.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Impact des bonus/malus}{16}{subsection.4.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Décomposition de l'impact environnemental - Nutella (400g)}}{17}{table.caption.19}\protected@file@percent }
+\newlabel{tab:nutella_breakdown}{{6}{17}{Décomposition de l'impact environnemental - Nutella (400g)}{table.caption.19}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Distribution des éco-scores}}{17}{table.caption.20}\protected@file@percent }
+\newlabel{tab:score_distribution}{{7}{17}{Distribution des éco-scores}{table.caption.20}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Effet des bonus/malus sur le score (exemples)}}{17}{table.caption.21}\protected@file@percent }
+\newlabel{tab:bonus_malus_effect}{{8}{17}{Effet des bonus/malus sur le score (exemples)}{table.caption.21}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Performance du système}{17}{subsection.4.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.1}Temps de traitement}{17}{subsubsection.4.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.2}Scalabilité}{17}{subsubsection.4.5.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Temps de traitement par étape (moyenne sur 30 produits)}}{18}{table.caption.22}\protected@file@percent }
+\newlabel{tab:processing_time}{{9}{18}{Temps de traitement par étape (moyenne sur 30 produits)}{table.caption.22}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6}Fiabilité et tests}{18}{subsection.4.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Discussion}{18}{section.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Validation scientifique de la méthodologie}{18}{subsection.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.1}Comparaison avec ACV complètes}{18}{subsubsection.5.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.2}Limitations méthodologiques}{18}{subsubsection.5.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.3}Incertitudes}{18}{subsubsection.5.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Apports du traitement automatisé}{19}{subsection.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.1}Efficacité du pipeline NLP}{19}{subsubsection.5.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.2}Architecture microservices}{19}{subsubsection.5.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Interprétation des résultats}{19}{subsection.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.1}Facteurs dominants}{19}{subsubsection.5.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.2}Hiérarchie des impacts}{19}{subsubsection.5.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.3}Recommandations pour réduction d'impact}{20}{subsubsection.5.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Interface utilisateur et démonstration}{20}{subsection.5.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.1}Interface web de la plateforme}{20}{subsubsection.5.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.2}Affichage des résultats}{20}{subsubsection.5.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.3}Exemple : analyse du Nutella}{20}{subsubsection.5.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.4}Services Docker}{20}{subsubsection.5.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.5}Traçabilité des calculs}{21}{subsubsection.5.4.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Applications et perspectives}{21}{subsection.5.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.5.1}Cas d'usage}{21}{subsubsection.5.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.5.2}Évolutions futures}{21}{subsubsection.5.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.5.3}Reproductibilité et open science}{21}{subsubsection.5.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.6}Comparaison avec systèmes existants}{21}{subsection.5.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{21}{section.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Synthèse des contributions}{21}{subsection.6.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {10}{\ignorespaces Comparaison avec systèmes d'étiquetage existants}}{22}{table.caption.23}\protected@file@percent }
+\newlabel{tab:comparison_systems}{{10}{22}{Comparaison avec systèmes d'étiquetage existants}{table.caption.23}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Validation des hypothèses}{22}{subsection.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Impact et applications}{22}{subsection.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Limites et perspectives}{22}{subsection.6.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.5}Conclusion générale}{23}{subsection.6.5}\protected@file@percent }
+\bibcite{ipcc2019}{1}
+\bibcite{iso14040}{2}
+\bibcite{ecoinvent}{3}
+\bibcite{agribalyse}{4}
+\bibcite{fao2021}{5}
+\bibcite{spacy}{6}
+\bibcite{flair}{7}
+\bibcite{devlin2019}{8}
+\bibcite{camembert}{9}
+\bibcite{zhang2020ner}{10}
+\bibcite{poore2018reducing}{11}
+\bibcite{clune2017comparative}{12}
+\bibcite{ritchie2020environmental}{13}
+\bibcite{springmann2018options}{14}
+\gdef \@abspage@last{24}

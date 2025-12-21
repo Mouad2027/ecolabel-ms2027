@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import { AlertTriangle, Factory, Droplet, Zap, Leaf, Recycle, Sprout, Handshake, MapPin, Wheat, ChevronDown, ChevronRight } from 'lucide-react'
 import './EcoScoreWidget.css'
 
 const API_BASE = import.meta.env.VITE_API_URL || '/public'
@@ -44,7 +45,7 @@ function EcoScoreWidget({ productId, demoMode = false, demoData = null }) {
   if (error) {
     return (
       <div className="eco-widget eco-widget-error">
-        <span className="error-icon">⚠️</span>
+        <span className="error-icon"><AlertTriangle size={24} /></span>
         <p>{error}</p>
       </div>
     )
@@ -109,7 +110,7 @@ function EcoScoreWidget({ productId, demoMode = false, demoData = null }) {
       {/* Breakdown */}
       <div className="breakdown-section">
         <h4 onClick={() => setExpanded(!expanded)} className="breakdown-toggle">
-          Environmental Impact {expanded ? '▼' : '▶'}
+          Environmental Impact {expanded ? <ChevronDown size={20} className="inline-icon" /> : <ChevronRight size={20} className="inline-icon" />}
         </h4>
         
         {expanded && (
@@ -117,7 +118,7 @@ function EcoScoreWidget({ productId, demoMode = false, demoData = null }) {
             {breakdown && (
               <>
                 <div className="breakdown-item">
-                  <span className="breakdown-icon">🏭</span>
+                  <span className="breakdown-icon"><Factory size={24} /></span>
                   <div className="breakdown-content">
                     <span className="breakdown-label">{breakdown.co2.label}</span>
                     <span className="breakdown-value">
@@ -133,7 +134,7 @@ function EcoScoreWidget({ productId, demoMode = false, demoData = null }) {
                 </div>
                 
                 <div className="breakdown-item">
-                  <span className="breakdown-icon">💧</span>
+                  <span className="breakdown-icon"><Droplet size={24} /></span>
                   <div className="breakdown-content">
                     <span className="breakdown-label">{breakdown.water.label}</span>
                     <span className="breakdown-value">
@@ -149,7 +150,7 @@ function EcoScoreWidget({ productId, demoMode = false, demoData = null }) {
                 </div>
                 
                 <div className="breakdown-item">
-                  <span className="breakdown-icon">⚡</span>
+                  <span className="breakdown-icon"><Zap size={24} /></span>
                   <div className="breakdown-content">
                     <span className="breakdown-label">{breakdown.energy.label}</span>
                     <span className="breakdown-value">
@@ -204,16 +205,24 @@ function EcoScoreWidget({ productId, demoMode = false, demoData = null }) {
 }
 
 function formatLabel(label) {
-  const labelNames = {
-    bio: '🌱 Organic',
-    recyclable: '♻️ Recyclable',
-    vegan: '🥬 Vegan',
-    fair_trade: '🤝 Fair Trade',
-    local_sourcing: '📍 Local',
-    non_gmo: '🧬 Non-GMO',
-    gluten_free: '🌾 Gluten-Free'
+  const labelConfig = {
+    bio: { icon: Leaf, text: 'Organic' },
+    recyclable: { icon: Recycle, text: 'Recyclable' },
+    vegan: { icon: Sprout, text: 'Vegan' },
+    fair_trade: { icon: Handshake, text: 'Fair Trade' },
+    local_sourcing: { icon: MapPin, text: 'Local' },
+    non_gmo: { icon: Leaf, text: 'Non-GMO' },
+    gluten_free: { icon: Wheat, text: 'Gluten-Free' }
   }
-  return labelNames[label] || label
+  
+  const config = labelConfig[label] || { icon: Leaf, text: label }
+  const Icon = config.icon
+  
+  return (
+    <>
+      <Icon size={14} className="inline-icon" /> {config.text}
+    </>
+  )
 }
 
 export default EcoScoreWidget

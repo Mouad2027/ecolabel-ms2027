@@ -1,8 +1,10 @@
 import { useState, useRef } from 'react'
 import axios from 'axios'
+import { Upload, FolderOpen, Camera, FileText, Barcode, X, CheckCircle, AlertCircle } from 'lucide-react'
 import './FileUpload.css'
 
-const PARSER_API = import.meta.env.VITE_PARSER_URL || 'http://localhost:8001'
+// Use relative URLs that will be proxied by nginx
+const API_BASE = '/public'
 
 function FileUpload({ onProductParsed }) {
   const [uploading, setUploading] = useState(false)
@@ -70,41 +72,39 @@ function FileUpload({ onProductParsed }) {
       const formData = new FormData()
       formData.append('file', file)
 
-      const response = await axios.post(`${PARSER_API}/product/parse`, formData, {
+      // Use the unified API endpoint that handles file upload + parsing + scoring
+      const response = await axios.post(`${API_BASE}/products/upload`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
+        timeout: 120000  // 2 minute timeout for file processing
       })
 
-      const parsedData = response.data
+      const data = response.data
+      console.log('Upload response data:', data)
 
-      // Step 2: Send ingredients to NLP for analysis
-      setSuccess(`✅ Produit analysé, calcul du score en cours...`)
-      
-      const WIDGET_API = import.meta.env.VITE_API_URL || 'http://localhost:8005/public'
-      
-      // Create full product with score calculation
-      const productPayload = {
-        title: parsedData.title || 'Produit sans nom',
-        brand: parsedData.brand || '',
-        gtin: parsedData.gtin || '',
-        ingredients_text: parsedData.ingredients_text || '',
-        origin: parsedData.origin || '',
-        packaging: parsedData.packaging || ''
-      }
-
-      // Send to widget API to create product with eco-score
-      const scoreResponse = await axios.post(`${WIDGET_API}/products`, productPayload)
-      
-      setSuccess(`✅ Produit analysé et noté: ${scoreResponse.data.eco_score?.letter || 'N/A'} - ${parsedData.title || 'Sans nom'}`)
+      const weightInfo = data.weight_g || data.parsed_data?.weight_g
+      const weightStr = weightInfo ? (weightInfo >= 1000 ? `${(weightInfo/1000).toFixed(1)}kg` : `${weightInfo}g`) : ''
+      setSuccess(`✅ Produit analysé et noté: ${data.eco_score?.letter || 'N/A'} - ${data.title || data.parsed_data?.title || 'Sans nom'}${weightStr ? ` (${weightStr})` : ''}`)
       
       // Call parent callback with full product data including score
       if (onProductParsed) {
-        onProductParsed({
-          ...parsedData,
-          eco_score: scoreResponse.data.eco_score,
-          id: scoreResponse.data.id
-        })
+        // Ensure arrays are always arrays
+        const ensureArray = (val) => Array.isArray(val) ? val : (val ? [val] : [])
+        
+        const productData = {
+          title: data.title || data.parsed_data?.title || 'Produit',
+          brand: data.brand || data.parsed_data?.brand || '',
+          gtin: data.gtin || data.parsed_data?.gtin || '',
+          weight_g: data.weight_g || data.parsed_data?.weight_g,
+          ingredients: ensureArray(data.ingredients || data.parsed_data?.ingredients),
+          origins: ensureArray(data.origins || (data.parsed_data?.origin ? [data.parsed_data.origin] : data.parsed_data?.origins)),
+          labels: ensureArray(data.labels || data.parsed_data?.labels),
+          eco_score: data.eco_score,
+          id: data.id
+        }
+        console.log('Calling onProductParsed with:', productData)
+        onProductParsed(productData)
       }
 
       // Reset file input
@@ -154,7 +154,7 @@ function FileUpload({ onProductParsed }) {
             </>
           ) : (
             <>
-              <div className="upload-icon">📤</div>
+              <div className="upload-icon"><Upload size={48} strokeWidth={1.5} /></div>
               <p className="upload-title">
                 <strong>Glissez-déposez</strong> un fichier ici
               </p>
@@ -164,13 +164,13 @@ function FileUpload({ onProductParsed }) {
                 className="upload-button"
                 onClick={onButtonClick}
               >
-                📁 Parcourir les fichiers
+                <FolderOpen size={20} /> Parcourir les fichiers
               </button>
               <p className="upload-hint">
                 Formats supportés: PDF, HTML, Images (JPG, PNG, GIF, BMP, TIFF)
               </p>
               <p className="upload-hint">
-                📷 Photos de produits • 📄 Étiquettes PDF • 🏷️ Codes-barres
+                <Camera size={16} className="inline-icon" /> Photos de produits • <FileText size={16} className="inline-icon" /> Étiquettes PDF • <Barcode size={16} className="inline-icon" /> Codes-barres
               </p>
             </>
           )}
@@ -179,16 +179,16 @@ function FileUpload({ onProductParsed }) {
 
       {error && (
         <div className="upload-message error">
-          <span>❌</span>
+          <span><AlertCircle size={20} /></span>
           <span>{error}</span>
-          <button onClick={() => setError(null)}>✕</button>
+          <button onClick={() => setError(null)}><X size={18} /></button>
         </div>
       )}
 
       {success && (
         <div className="upload-message success">
-          <span>{success}</span>
-          <button onClick={() => setSuccess(null)}>✕</button>
+          <span><CheckCircle size={20} className="inline-icon" /> {success}</span>
+          <button onClick={() => setSuccess(null)}><X size={18} /></button>
         </div>
       )}
     </div>
