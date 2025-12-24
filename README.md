@@ -6,6 +6,14 @@ EcoLabel-MS2027 is a full-stack microservices solution that parses product data 
 
 ---
 
+## 🎥 Enregistrement de l'Exécution du Projet
+
+[![Voir la démo vidéo](https://img.shields.io/badge/▶️_Voir_la_Vidéo-Google_Drive-4285F4?style=for-the-badge&logo=googledrive)](https://drive.google.com/drive/folders/17pYh3OInU2u5ayXA_z4vKzmb7xdE7eLu?usp=sharing)
+
+> 🎬 Démonstration complète du système EcoLabel-MS2027 : upload de fichier produit, analyse NLP, calcul d'impact environnemental, et affichage de l'éco-score A-E.
+
+---
+
 ## 📋 Table of Contents
 
 - [Architecture Overview](#architecture-overview)
