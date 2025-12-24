@@ -114,6 +114,13 @@ function ProductHistory({ onProductSelect }) {
                   {product.brand && (
                     <p className="card-brand">🏷️ {product.brand}</p>
                   )}
+                  {product.weight_g && (
+                    <p className="card-weight">💪 {
+                      product.weight_g >= 1000 
+                        ? `${(product.weight_g / 1000).toFixed(1)} kg`
+                        : `${product.weight_g} g`
+                    }</p>
+                  )}
                   {product.origin && (
                     <p className="card-origin">📍 {product.origin}</p>
                   )}

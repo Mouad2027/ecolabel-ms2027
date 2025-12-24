@@ -2,7 +2,7 @@
 Public API routes for widget
 """
 
-from fastapi import APIRouter, HTTPException, Depends, Query, UploadFile, File
+from fastapi import APIRouter, HTTPException, Depends, Query, UploadFile, File, Form
 from sqlalchemy.orm import Session
 from typing import Optional, List
 import httpx
@@ -77,6 +77,7 @@ async def get_products_history(
                 "title": product.title,
                 "brand": product.brand,
                 "gtin": product.gtin,
+                "weight_g": product.weight_g,
                 "origin": origin,
                 "eco_score": {
                     "letter": product.score_letter,
@@ -183,7 +184,10 @@ def calculate_local_lca(ingredients_text: str) -> dict:
     }
 
 def calculate_local_score(co2: float, water: float, energy: float) -> dict:
-    """Calculate eco-score locally based on LCA impacts"""
+    """Calculate eco-score locally based on LCA impacts
+    
+    Score logic (per article): Score represents IMPACT, so LOW score = LOW impact = GOOD
+    """
     # Normalize values (based on typical ranges)
     # CO2: 0-10 kg → 0-100 score
     co2_score = min(100, (co2 / 10) * 100)
@@ -196,7 +200,7 @@ def calculate_local_score(co2: float, water: float, energy: float) -> dict:
     numeric_score = co2_score * 0.5 + water_score * 0.3 + energy_score * 0.2
     numeric_score = round(numeric_score)
     
-    # Convert to letter grade
+    # Convert to letter grade (LOW score = GOOD per article)
     if numeric_score < 20:
         letter = "A"
     elif numeric_score < 40:
@@ -365,6 +369,7 @@ async def get_provenance(score_id: str):
 @router.post("/products/upload")
 async def upload_and_analyze_product(
     file: UploadFile = File(...),
+    weight_g: Optional[float] = Form(None),
     db: Session = Depends(get_db)
 ):
     """
@@ -373,12 +378,13 @@ async def upload_and_analyze_product(
     
     Args:
         file: The uploaded file (image, PDF, HTML, or text)
+        weight_g: Optional product weight in grams (can be provided by user)
         db: Database session
         
     Returns:
         Product data with eco-score
     """
-    logger.info(f"Received file upload: {file.filename}, content_type: {file.content_type}")
+    logger.info(f"Received file upload: {file.filename}, content_type: {file.content_type}, weight_g: {weight_g}")
     
     try:
         # Step 1: Send file to parser service
@@ -410,7 +416,8 @@ async def upload_and_analyze_product(
             "ingredients_text": parsed_data.get("ingredients_text", ""),
             "origin": parsed_data.get("origin", ""),
             "packaging": parsed_data.get("packaging", ""),
-            "weight_g": parsed_data.get("weight_g"),  # Product weight in grams
+            # Use user-provided weight if available, otherwise use parsed weight
+            "weight_g": weight_g if weight_g is not None else parsed_data.get("weight_g"),
             "serving_size": parsed_data.get("serving_size")
         }
         

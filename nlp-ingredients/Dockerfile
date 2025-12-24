@@ -17,6 +17,9 @@ RUN python -m spacy download en_core_web_sm || echo "Warning: en_core_web_sm not
 RUN python -m spacy download fr_core_news_sm || echo "Warning: fr_core_news_sm not downloaded"
 RUN python -m spacy download de_core_news_sm || echo "Warning: de_core_news_sm not downloaded"
 
+# Pre-download Hugging Face models to avoid runtime download issues
+RUN python -c "from transformers import pipeline; pipeline('zero-shot-classification', model='facebook/bart-large-mnli')" || echo "Warning: BART model not downloaded"
+
 # Copy application code
 COPY . .
 

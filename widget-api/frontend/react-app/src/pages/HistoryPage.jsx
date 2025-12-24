@@ -9,22 +9,13 @@ function HistoryPage() {
   const [totalProducts, setTotalProducts] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
   const [filterScore, setFilterScore] = useState('all')
-  const [lastRefresh, setLastRefresh] = useState(Date.now())
   const navigate = useNavigate()
   
   const productsPerPage = 12
 
-  // Auto-refresh every 10 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setLastRefresh(Date.now())
-    }, 10000)
-    return () => clearInterval(interval)
-  }, [])
-
   useEffect(() => {
     fetchHistory()
-  }, [currentPage, filterScore, lastRefresh])
+  }, [currentPage, filterScore])
 
   const fetchHistory = async () => {
     try {

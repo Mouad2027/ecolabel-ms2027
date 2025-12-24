@@ -67,7 +67,16 @@ function EcoScoreWidget({ productId, demoMode = false, demoData = null }) {
       <div className="eco-widget-header">
         <div className="product-info">
           <h3 className="product-title">{title}</h3>
-          {brand && <span className="product-brand">{brand}</span>}
+          <div className="product-meta">
+            {brand && <span className="product-brand">🏷️ {brand}</span>}
+            {product.weight_g && (
+              <span className="product-weight">
+                ⚖️ {product.weight_g >= 1000 
+                  ? `${(product.weight_g / 1000).toFixed(1)} kg` 
+                  : `${product.weight_g} g`}
+              </span>
+            )}
+          </div>
         </div>
         <div 
           className="score-badge"

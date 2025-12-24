@@ -237,7 +237,7 @@ services:
   # =============================================================================
 
   mlflow:
-    image: ghcr.io/mlflow/mlflow:v2.9.2
+    build: ./mlflow
     container_name: ecolabel-mlflow
     command: >
       mlflow server

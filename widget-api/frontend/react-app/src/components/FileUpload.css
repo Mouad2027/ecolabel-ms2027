@@ -3,6 +3,73 @@
   margin: 20px 0;
 }
 
+/* Weight Input Styles */
+.weight-input-container {
+  margin-bottom: 16px;
+  padding: 16px;
+  background: #f7fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.weight-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 8px;
+}
+
+.weight-input-group {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.weight-input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 2px solid #cbd5e0;
+  border-radius: 6px;
+  font-size: 15px;
+  transition: all 0.2s ease;
+  background: white;
+}
+
+.weight-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.weight-input:disabled {
+  background: #edf2f7;
+  cursor: not-allowed;
+}
+
+.weight-unit {
+  padding: 10px 12px;
+  border: 2px solid #cbd5e0;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 70px;
+}
+
+.weight-unit:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.weight-unit:disabled {
+  background: #edf2f7;
+  cursor: not-allowed;
+}
+
 .upload-area {
   border: 2px dashed #cbd5e0;
   border-radius: 12px;

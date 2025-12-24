@@ -147,10 +147,16 @@
 }
 
 .card-brand,
+.card-weight,
 .card-origin {
   font-size: 0.9rem;
   color: #7f8c8d;
   margin: 0.25rem 0;
+}
+
+.card-weight {
+  color: #667eea;
+  font-weight: 600;
 }
 
 .card-impacts {

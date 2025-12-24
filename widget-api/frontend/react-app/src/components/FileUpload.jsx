@@ -71,8 +71,8 @@ function FileUpload({ onProductParsed }) {
 
       const formData = new FormData()
       formData.append('file', file)
-
-      // Use the unified API endpoint that handles file upload + parsing + scoring
+      
+      // Add weight if provided
       const response = await axios.post(`${API_BASE}/products/upload`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
