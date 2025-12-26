@@ -195,12 +195,21 @@ function EcoScoreWidget({ productId, demoMode = false, demoData = null }) {
         <div className="ingredients-section">
           <span className="ingredients-label">Main ingredients: </span>
           <span className="ingredients-list">
-            {ingredients
-              .slice(0, 4)
-              .map(ing => typeof ing === 'string' ? ing : ing.name || ing.normalized_name)
-              .filter(Boolean)
-              .join(', ')}
-            {ingredients.length > 4 && ` +${ingredients.length - 4} more`}
+            {(() => {
+              // Extract ingredient names and remove duplicates
+              const uniqueIngredients = ingredients
+                .map(ing => typeof ing === 'string' ? ing : ing.name || ing.normalized_name)
+                .filter(Boolean)
+                .map(name => name.trim())
+                .filter((name, index, self) => {
+                  // Remove duplicates (case insensitive)
+                  const lowerName = name.toLowerCase()
+                  return self.findIndex(n => n.toLowerCase() === lowerName) === index
+                })
+              
+              return uniqueIngredients.slice(0, 4).join(', ') + 
+                (uniqueIngredients.length > 4 ? ` +${uniqueIngredients.length - 4} more` : '')
+            })()}
           </span>
         </div>
       )}

@@ -218,6 +218,11 @@ function HomePage() {
                         return cleanIngredient(text)
                       })
                       .filter(text => text && text.length >= 2)  // Remove empty and very short
+                      .filter((text, index, self) => {
+                        // Remove duplicates (case insensitive)
+                        const lowerText = text.toLowerCase().trim()
+                        return self.findIndex(t => t.toLowerCase().trim() === lowerText) === index
+                      })
                       .map((cleanedText, idx) => (
                         <div key={idx} className="ingredient-item">
                           <span className="ingredient-bullet">•</span>
