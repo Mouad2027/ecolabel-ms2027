@@ -1,0 +1,41 @@
+# Core plugins
+workflow-aggregator:latest
+git:latest
+github:latest
+github-branch-source:latest
+
+# Docker plugins
+docker-workflow:latest
+docker-plugin:latest
+
+# Pipeline utilities
+pipeline-stage-view:latest
+pipeline-utility-steps:latest
+pipeline-build-step:latest
+
+# Credentials management
+credentials-binding:latest
+ssh-credentials:latest
+
+# Build tools
+timestamper:latest
+ws-cleanup:latest
+build-timeout:latest
+ansicolor:latest
+
+# Notifications (optional - uncomment if needed)
+# slack:latest
+# email-ext:latest
+
+# Security
+role-strategy:latest
+
+# UI improvements
+blueocean:latest
+dashboard-view:latest
+
+# Code quality
+warnings-ng:latest
+junit:latest
+jacoco:latest
+cobertura:latest

@@ -1,0 +1,105 @@
+# Jenkins Configuration as Code (JCasC)
+# This file configures Jenkins automatically on startup
+
+jenkins:
+  systemMessage: "EcoLabel Microservices CI/CD - Configured automatically by JCasC"
+  
+  numExecutors: 4
+  mode: NORMAL
+  
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: "admin"
+          password: "${JENKINS_ADMIN_PASSWORD:-admin}"
+          name: "Administrator"
+  
+  authorizationStrategy:
+    roleBased:
+      roles:
+        global:
+          - name: "admin"
+            description: "Jenkins administrators"
+            permissions:
+              - "Overall/Administer"
+            entries:
+              - user: "admin"
+          - name: "developer"
+            description: "Developers"
+            permissions:
+              - "Overall/Read"
+              - "Job/Build"
+              - "Job/Cancel"
+              - "Job/Read"
+              - "Job/Workspace"
+              - "Run/Replay"
+              - "Run/Update"
+            entries: []
+
+  globalNodeProperties:
+    - envVars:
+        env:
+          - key: "REGISTRY_URL"
+            value: "docker.io"
+          - key: "IMAGE_PREFIX"
+            value: "ecolabel"
+
+credentials:
+  system:
+    domainCredentials:
+      - credentials:
+          - usernamePassword:
+              scope: GLOBAL
+              id: "docker-registry-credentials"
+              username: "${DOCKER_REGISTRY_USER:-docker-user}"
+              password: "${DOCKER_REGISTRY_PASSWORD:-changeme}"
+              description: "Docker Registry Credentials"
+          - string:
+              scope: GLOBAL
+              id: "postgres-password"
+              secret: "${POSTGRES_PASSWORD:-postgres}"
+              description: "PostgreSQL Password"
+          - string:
+              scope: GLOBAL
+              id: "minio-password"
+              secret: "${MINIO_ROOT_PASSWORD:-minioadmin123}"
+              description: "MinIO Password"
+
+unclassified:
+  location:
+    url: "http://localhost:8080/"
+    adminAddress: "admin@ecolabel.local"
+  
+  gitHubPluginConfig:
+    configs:
+      - name: "GitHub"
+        manageHooks: true
+  
+  timestamper:
+    allPipelines: true
+
+jobs:
+  - script: >
+      multibranchPipelineJob('ecolabel-ms') {
+        displayName('EcoLabel Microservices Pipeline')
+        description('CI/CD Pipeline for EcoLabel Microservices')
+        
+        branchSources {
+          git {
+            id('ecolabel-ms-git')
+            remote('${GIT_REPO_URL:-/var/jenkins_home/workspace/ecolabel-ms}')
+            credentialsId('')
+          }
+        }
+        
+        orphanedItemStrategy {
+          discardOldItems {
+            numToKeep(10)
+          }
+        }
+        
+        triggers {
+          periodic(5)
+        }
+      }

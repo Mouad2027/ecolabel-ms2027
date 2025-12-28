@@ -1,0 +1,80 @@
+# Docker Compose file for Jenkins CI/CD
+# Usage: docker-compose -f docker-compose.jenkins.yml up -d
+
+services:
+  jenkins:
+    build:
+      context: ./jenkins
+      dockerfile: Dockerfile
+    container_name: ecolabel-jenkins
+    restart: unless-stopped
+    privileged: true
+    user: root
+    environment:
+      # Jenkins Configuration as Code
+      CASC_JENKINS_CONFIG: /var/jenkins_home/casc.yaml
+      # Admin credentials (change in production!)
+      JENKINS_ADMIN_PASSWORD: ${JENKINS_ADMIN_PASSWORD:-admin}
+      # Docker Registry
+      DOCKER_REGISTRY_USER: ${DOCKER_REGISTRY_USER:-}
+      DOCKER_REGISTRY_PASSWORD: ${DOCKER_REGISTRY_PASSWORD:-}
+      # Database passwords
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin123}
+      # Git repository URL (for automated job creation)
+      GIT_REPO_URL: ${GIT_REPO_URL:-}
+    ports:
+      - "8080:8080"      # Jenkins Web UI
+      - "50000:50000"    # Jenkins Agent Port
+    volumes:
+      # Jenkins home directory
+      - jenkins_home:/var/jenkins_home
+      # Docker socket for Docker-in-Docker
+      - /var/run/docker.sock:/var/run/docker.sock
+      # Configuration as Code
+      - ./jenkins/casc.yaml:/var/jenkins_home/casc.yaml:ro
+      # Mount the project for local builds
+      - .:/var/jenkins_home/workspace/ecolabel-ms:ro
+    networks:
+      - ecolabel-network
+      - jenkins-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/login"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+  # Jenkins Agent (optional - for distributed builds)
+  jenkins-agent:
+    image: jenkins/inbound-agent:latest
+    container_name: ecolabel-jenkins-agent
+    restart: unless-stopped
+    environment:
+      JENKINS_URL: http://jenkins:8080
+      JENKINS_AGENT_NAME: docker-agent
+      JENKINS_SECRET: ${JENKINS_AGENT_SECRET:-}
+      JENKINS_AGENT_WORKDIR: /home/jenkins/agent
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - jenkins_agent_workdir:/home/jenkins/agent
+    depends_on:
+      jenkins:
+        condition: service_healthy
+    networks:
+      - jenkins-network
+    profiles:
+      - agent  # Only starts with: docker-compose --profile agent up
+
+volumes:
+  jenkins_home:
+    name: ecolabel-jenkins-home
+  jenkins_agent_workdir:
+    name: ecolabel-jenkins-agent-workdir
+
+networks:
+  ecolabel-network:
+    external: true
+  jenkins-network:
+    name: jenkins-network
+    driver: bridge
